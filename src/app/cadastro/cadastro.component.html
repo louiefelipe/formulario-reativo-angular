@@ -6,6 +6,8 @@
     <h3 class="principal__subtitulo">Dados pessoais</h3>
 
     <div class="formulario__campo">
+
+       <!-- CAMPO NOME -->
       <label class="campo__etiqueta" for="nome">Nome Completo*</label>
 
       <input name="nome" id="nome" 
@@ -31,26 +33,42 @@
         <input name="nascimento" id="nascimento" type="date" class="campo__escrita" ngModel/>
       </div>
 
+      <!--CAMPO CONTATO-->
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="telefone">Contato</label>
 
-        <input name="telefone" id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" class="campo__escrita" ngModel/>
+        <input name="telefone" id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" class="campo__escrita" 
+        ngModel required pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"/>
+
+         <div *ngIf="(f.controls['telefone']?.invalid && f.controls['telefone']?.touched) || f.controls['telefone']?.dirty">
+
+      <span class="erro__texto" *ngIf="f.controls['telefone']?.errors?.['required']">
+        O campo "telefone" é obrigatório!
+      </span>
+      <span class="erro__texto" *ngIf="f.controls['telefone']?.errors?.['pattern']">
+        O campo "telefone" não está preenchido corretamente.
+      </span>
+    </div>
+
       </div>
 
+      
+
+      <!-- CAMPO EMAIL -->
     </div>
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="email">E-mail*</label>
 
       <input name="email" id="email" type="email" class="campo__escrita" 
-      ngModel required email/>
+      ngModel required email pattern="^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$"/>
 
       <div *ngIf="(f.controls['email']?.invalid && f.controls['email']?.touched) || f.controls['email']?.dirty">
 
       <span class="erro__texto" *ngIf="f.controls['email']?.errors?.['required']">
         O campo "Email" é obrigatório!
       </span>
-      <span class="erro__texto" *ngIf="f.controls['email']?.errors?.['minlength']">
-        O Nome deve ter no mínimo 2 caracteres
+      <span class="erro__texto" *ngIf="f.controls['email']?.errors?.['email']">
+        O campo de email deve seguir este padrão: "ex@dominio.com"
       </span>
     </div>
  
