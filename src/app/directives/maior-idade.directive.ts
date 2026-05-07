@@ -1,17 +1,23 @@
-import { Directive } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { Directive } from "@angular/core";
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+} from "@angular/forms";
 
 @Directive({
-  selector: '[maiorIdadeValidator]',
-  providers: [{
-    provide: NG_VALIDATORS,
-    useExisting: MaiorIdadeDirective,
-    multi: true
-  }]
+  selector: "[maiorIdadeValidator]",
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: MaiorIdadeDirective,
+      multi: true,
+    },
+  ],
 })
 export class MaiorIdadeDirective implements Validator {
-
-  constructor() { }
+  constructor() {}
   validate(control: AbstractControl): ValidationErrors | null {
     const dataNascimento = control.value;
     const anoNascimento = new Date(dataNascimento).getFullYear();
@@ -21,6 +27,6 @@ export class MaiorIdadeDirective implements Validator {
 
     const maiorIdade = anoNascMais18 <= anoAtual;
 
-    return maiorIdade ? null : {maiorIdadeValidator: true};
+    return maiorIdade ? null : { maiorIdadeValidator: true };
   }
 }
